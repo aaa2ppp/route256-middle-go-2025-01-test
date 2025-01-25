@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-const dataDir = "./data"
+const dataDir = "../data"
 
 // func Test_run(t *testing.T) {
 // 	type args struct {
@@ -183,30 +183,30 @@ func getTestNames() []string {
 	return names
 }
 
-func Test_run2(t *testing.T) {
-	tests := getTestNames()
+// func Test_run2(t *testing.T) {
+// 	tests := getTestNames()
 
-	for _, test := range tests {
-		input, err := os.ReadFile(filepath.Join(dataDir, test))
-		if err != nil {
-			panic(err)
-		}
+// 	for _, test := range tests {
+// 		input, err := os.ReadFile(filepath.Join(dataDir, test))
+// 		if err != nil {
+// 			panic(err)
+// 		}
 
-		t.Run(test, func(t *testing.T) {
-			wantOut := &strings.Builder{}
-			run(bytes.NewReader(input), wantOut)
-			want := wantOut.String()
+// 		t.Run(test, func(t *testing.T) {
+// 			wantOut := &strings.Builder{}
+// 			run(bytes.NewReader(input), wantOut)
+// 			want := wantOut.String()
 
-			gotOut := &strings.Builder{}
-			run2(bytes.NewReader(input), gotOut)
-			got := gotOut.String()
+// 			gotOut := &strings.Builder{}
+// 			run2(bytes.NewReader(input), gotOut)
+// 			got := gotOut.String()
 
-			if got != want {
-				t.Errorf("run() = %v, \nwant %v", got, want)
-			}
-		})
-	}
-}
+// 			if got != want {
+// 				t.Errorf("run() = %v, \nwant %v", got, want)
+// 			}
+// 		})
+// 	}
+// }
 
 func Benchmark_run(b *testing.B) {
 	benchs := []struct {
@@ -216,7 +216,7 @@ func Benchmark_run(b *testing.B) {
 		{"copy", func(in io.Reader, out io.Writer) { io.Copy(out, in) }}, // погреваем кеш
 		{"copy", func(in io.Reader, out io.Writer) { io.Copy(out, in) }}, // сравниваем
 		{"run", run},
-		{"run2", run2},
+		// {"run2", run2},
 	}
 
 	tests := getTestNames()

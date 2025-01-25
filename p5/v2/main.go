@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -81,42 +80,9 @@ searchRobotLoop:
 	}
 }
 
-func run(in io.Reader, out io.Writer) {
-	br := bufio.NewReader(in)
-	bw := bufio.NewWriter(out)
-	defer bw.Flush()
-	var t int
-
-	if _, err := fmt.Fscanln(br, &t); err != nil {
-		panic(err)
-	}
-
-	var n, m int
-	var matrix [][]byte
-
-	for i := 1; i <= t; i++ {
-		if _, err := fmt.Fscanln(br, &n, &m); err != nil {
-			panic(err)
-		}
-		matrix = matrix[:0]
-		for i := 0; i < n; i++ {
-			line, err := br.ReadBytes('\n')
-			if err != nil {
-				panic(err)
-			}
-			matrix = append(matrix, line[:m])
-		}
-		solve(matrix)
-		for _, row := range matrix {
-			bw.Write(row)
-			bw.WriteByte('\n')
-		}
-	}
-}
-
 func unsafeString(b []byte) string { return *(*string)(unsafe.Pointer(&b)) }
 
-func run2(in io.Reader, out io.Writer) {
+func run(in io.Reader, out io.Writer) {
 	br := bufio.NewReader(in)
 	bw := bufio.NewWriter(out)
 	defer bw.Flush()
